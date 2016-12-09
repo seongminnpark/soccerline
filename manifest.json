@@ -1,0 +1,22 @@
+// manifest.json
+
+{
+  "manifest_version": 2,
+
+  "name": "Soccerline",
+  "description": "Make Soccerline Great Again",
+  "version": "1.0",
+
+  "permissions": [
+    "activeTab"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.soccerline.co.kr/slboard/list.php*"],
+      "js": ["content-script.js"]
+    }
+  ],
+
+  "manifest_version": 2
+}
