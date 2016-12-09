@@ -13,7 +13,7 @@
 
   "content_scripts": [
     {
-      "matches": ["https://www.soccerline.co.kr/slboard/list.php*"],
+      "matches": ["https://www.soccerline.co.kr/slboard/view.php*"],
       "js": ["content-script.js"]
     }
   ],
