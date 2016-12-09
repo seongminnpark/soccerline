@@ -1,2 +1,2 @@
 # soccerline
-Better Soccerline
+soccerline.co.kr
