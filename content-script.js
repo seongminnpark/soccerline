@@ -1,15 +1,11 @@
 // content-script.js
 
-var inject = function(postListHTML) {
-    var frames = document.getElementsByName ("if_comment_yesorno");
-    var commentFrame = frames[0];
+var inject = function(postList) {
+    var commentFrame = document.getElementsByName("if_comment_yesorno")[0];
     var commentParagraph = commentFrame.parentNode
     var bottomInstance = commentParagraph.parentNode
     var postInstance = bottomInstance.parentNode
 
-    var postList = document.createElement('div');
-    var pageNumber = getParamsMap()["page"];
-    postList.innerHTML = postListHTML;
     postInstance.appendChild(postList);
 }
 
@@ -35,10 +31,27 @@ var httpGetAsync = function(theUrl, callback) {
 }
 
 var injectCallback = function(responseText) {
-    postListHTML = responseText;
-    inject(postListHTML);
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(responseText, "text/html");
+    var postList = doc.createElement('div');
+    postList.id = "postList";
+
+    var boardForm = doc.getElementsByName("board")[0];
+    var titleTable = boardForm.parentNode;
+    var centerArea = titleTable.parentNode;
+    var centerTables = centerArea.children;
+
+    // Second table contains board title, Fifth table contains page numbers.
+    postList.appendChild(centerTables[1].cloneNode(true));
+    postList.appendChild(centerTables[2].cloneNode(true));
+    postList.appendChild(centerTables[3].cloneNode(true));
+    postList.appendChild(centerTables[4].cloneNode(true));
+    postList.appendChild(centerTables[5].cloneNode(true));
+    
+    inject(postList);
 }
 
+var pageNumber = getParamsMap()["page"];
 httpGetAsync("https://www.soccerline.co.kr/slboard/list.php?page=9&code=locker",injectCallback);
 
 
