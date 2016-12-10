@@ -41,13 +41,17 @@ var injectCallback = function(responseText) {
     var centerArea = titleTable.parentNode;
     var centerTables = centerArea.children;
 
+    // Remove write post button.
+    var writeButton = centerTables[1].children[1].children[1].children[2].children[0];
+    writeButton.parentNode.removeChild(writeButton);
+
     // Second table contains board title, Fifth table contains page numbers.
     postList.appendChild(centerTables[1].cloneNode(true));
     postList.appendChild(centerTables[2].cloneNode(true));
     postList.appendChild(centerTables[3].cloneNode(true));
     postList.appendChild(centerTables[4].cloneNode(true));
     postList.appendChild(centerTables[5].cloneNode(true));
-    
+
     inject(postList);
 }
 
