@@ -1,6 +1,6 @@
 // content-script.js
 
-var inject = function() {
+var inject = function(postListHTML) {
     var frames = document.getElementsByName ("if_comment_yesorno");
     var commentFrame = frames[0];
     var commentParagraph = commentFrame.parentNode
@@ -9,7 +9,7 @@ var inject = function() {
 
     var postList = document.createElement('div');
     var pageNumber = getParamsMap()["page"];
-    postList.innerHTML = '<li>Test 테스트.. Page Number: ' + pageNumber + ' </li>';
+    postList.innerHTML = postListHTML;
     postInstance.appendChild(postList);
 }
 
@@ -24,4 +24,21 @@ var getParamsMap = function () {
     return paramsMap;
 };
 
-inject();
+var httpGetAsync = function(theUrl, callback) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+var injectCallback = function(responseText) {
+    postListHTML = responseText;
+    inject(postListHTML);
+}
+
+httpGetAsync("https://www.soccerline.co.kr/slboard/list.php?page=9&code=locker",injectCallback);
+
+
