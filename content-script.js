@@ -45,6 +45,13 @@ var injectCallback = function(responseText) {
     var writeButton = centerTables[1].children[1].children[1].children[2].children[0];
     writeButton.parentNode.removeChild(writeButton);
 
+    // Fix page number links.
+    var pageButtons = centerTables[5].children[0].children[0].children[0].children;
+    for (var i=0; i < pageButtons.length; i++) {
+        var parameters = pageButtons[i].getAttribute("href");;
+        pageButtons[i].href = "https://www.soccerline.co.kr/slboard/list.php" + parameters;
+    }
+
     // Second table contains board title, Fifth table contains page numbers.
     postList.appendChild(centerTables[1].cloneNode(true));
     postList.appendChild(centerTables[2].cloneNode(true));
@@ -57,7 +64,8 @@ var injectCallback = function(responseText) {
 
 var main = function() {
     var pageNumber = getParamsMap()["page"];
-    httpGetAsync("https://www.soccerline.co.kr/slboard/list.php?page=9&code=locker",injectCallback);
+    var code = getParamsMap()["code"];
+    httpGetAsync("https://www.soccerline.co.kr/slboard/list.php?page="+pageNumber+"&code="+code,injectCallback);
 }
 
 main();
