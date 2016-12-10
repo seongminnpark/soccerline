@@ -1,4 +1,4 @@
-// content-script.js
+// inject.js
 
 var inject = function(postList) {
     var commentFrame = document.getElementsByName("if_comment_yesorno")[0];
@@ -60,4 +60,3 @@ var main = function() {
     httpGetAsync("https://www.soccerline.co.kr/slboard/list.php?page=9&code=locker",injectCallback);
 }
 
-main();
