@@ -1,4 +1,14 @@
-// content-script.js
+// constants.js
+
+// Page type.
+const PageTypeEnum = {
+	HOME   : "home",
+	NEWS   : "news",
+	TV     : "tv",
+	LEAGUE : "league",
+	BOARD  : "board",
+	POST   : "post",
+};
 
 // Extracted parameters from page's URI.
 const ParamEnum = {
@@ -7,6 +17,7 @@ const ParamEnum = {
 	SEARCH_TYPE   : "searchType",
 	CATEORY_DEPTH : "categoryDepth01",
   	PAGE          : "page",
+  	PAGE_TYPE      : "pageType",
 };
 
 // Each board has a unique categoryDepth01.
@@ -22,24 +33,3 @@ const BoardEnum = {
   	LOCKEROOM_UPVOTED : "9",
   	VOTE              : "10",
 };	
-
-// Extract info about current page.
-var getParamsMap = function () {
-    var uri = window.location.href;
-    var params = uri.substring(uri.indexOf('?')+1).split('&');
-    var paramsMap = {};
-    params.forEach(function (p) {
-        var v = p.split("=");
-        paramsMap[v[0]]=decodeURIComponent(v[1]);
-    });
-    return paramsMap;
-};
-
-// Entry point.
-var main = function() {
-	var paramsMap = getParamsMap()
-	console.log(paramsMap)
-	alert("Hello World");
-};
-
-main()
