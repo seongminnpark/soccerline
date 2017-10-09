@@ -17,7 +17,7 @@ const ParamEnum = {
 	SEARCH_TYPE   : "searchType",
 	CATEORY_DEPTH : "categoryDepth01",
   	PAGE          : "page",
-  	PAGE_TYPE      : "pageType",
+  	PAGE_TYPE     : "pageType",
 };
 
 // Each board has a unique categoryDepth01.

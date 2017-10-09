@@ -15,24 +15,39 @@ var getParamsMap = function () {
     });
 
     // Determine page type.
-    console.log(uri.split("/"));
-    var subpath = uri.split("/")[3]; // 4th element contains the page type.
+    // Example: http://http://soccerline.kr/board/14216168?searchType=0
+    // urn: /board/14216168?searchType=0
+    // subpath: ["board", "14216168"]
+    var urn  = uri.substring("http://soccerline.kr".length);
+    var indexEnd = urn.indexOf("?") != -1 ? urn.indexOf("?") : urn.length
+    var subpath = urn.substring(urn.indexOf("/")+1,indexEnd);
+    var subpathList = subpath.split("/");
     var pageType = null;
-    if (subpath == "") {
-        pageType = PageTypeEnum.HOME;
-    } else if (pageType == "board") {
+    var postId   = null;
 
-    } else {
-        pageType  = subpath;
-    } 
-    paramsMap[ParamEnum.PAGETYPE] = pageType;
+    if (subpathList.length >= 1) {
+        
+        switch (subpathList[0]) {
+            case "": 
+                pageType = PageTypeEnum.HOME
+                break;
+            case PageTypeEnum.BOARD:
+                // Subpath가 board라면 글 아이디 있는지 확인.
+                if (subpathList.length >= 2) {
+                    pageType = PageTypeEnum.POST; 
+                    postId = subpathList[1];
+                } else {
+                    pageType = PageTypeEnum.BOARD; 
+                }
+                break; 
+            default: 
+                pageType = subpathList[0];
+                break;
+        }
+    }
 
-    // Board category가 set 되어있다면 글 아이디 있는지 확인.
-    if (paramsMap[ParamEnum.PAGE_TYPE] == PageTypeEnum.POST) {
-    	var searchIndex = "http://soccerline.kr/board".length
-    	var postId = uri.substring(uri.indexOf("/", searchIndex)+1,uri.lastIndexOf("?"));
-    	paramsMap[ParamEnum.POST_ID] = postId ? postId : null;
-	}
+    paramsMap[ParamEnum.PAGE_TYPE] = pageType;
+    paramsMap[ParamEnum.POST_ID]  = postId;
 
     return paramsMap;
 };
