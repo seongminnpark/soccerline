@@ -8,6 +8,8 @@ const PageTypeEnum = {
 	LEAGUE : "league",
 	BOARD  : "board",
 	POST   : "post",
+	NOTICE : "notice",
+	MEMBER : "member",
 };
 
 // Extracted parameters from page's URI.
