@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "matches": ["http://soccerline.kr/*"],
-      "js": ["script/constants.js", "script/content-script.js"]
+      "js": ["scripts/constants.js", "scripts/content-script.js"]
     }
   ],
 
