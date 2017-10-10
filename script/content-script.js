@@ -47,7 +47,7 @@ var getParamsMap = function () {
     }
 
     paramsMap[ParamEnum.PAGE_TYPE] = pageType;
-    paramsMap[ParamEnum.POST_ID]  = postId;
+    paramsMap[ParamEnum.POST_ID]   = postId;
 
     return paramsMap;
 };

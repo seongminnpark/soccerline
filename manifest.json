@@ -12,13 +12,13 @@
   "content_scripts": [
     {
       "matches": ["http://soccerline.kr/*"],
-      "js": ["scripts/constants.js", "scripts/content-script.js"]
+      "js": ["script/constants.js", "script/content-script.js"]
     }
   ],
 
-  "icons": { "16": "icons/icon16.png",
-           "48": "icons/icon48.png",
-          "128": "icons/icon128.png" },
+  "icons": { "16": "icon/icon16.png",
+           "48": "icon/icon48.png",
+          "128": "icon/icon128.png" },
 
   "manifest_version": 2
 }
